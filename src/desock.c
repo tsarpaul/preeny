@@ -94,8 +94,10 @@ __attribute__((destructor)) void preeny_desock_shutdown()
 		if (preeny_socket_threads_to_front[i])
 		{
 			preeny_debug("sending SIGINT to thread %d...\n", i);
-			pthread_join(*preeny_socket_threads_to_front[i], NULL);
-			pthread_join(*preeny_socket_threads_to_back[i], NULL);
+			pthread_kill(*preeny_socket_threads_to_front[i], 15);
+			pthread_kill(*preeny_socket_threads_to_back[i], 15);
+			//pthread_join(*preeny_socket_threads_to_front[i], NULL);
+			//pthread_join(*preeny_socket_threads_to_back[i], NULL);
 			preeny_debug("... sent!\n");
 			to_sync[i] = 1;
 		}
